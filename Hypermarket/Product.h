@@ -9,7 +9,7 @@
 class Product
 {
 public:
-	Product(std::string, std::string, double, double);
+	Product(std::string brand, std::string productName, double price, double maxDiscount);
 	virtual ~Product() {}
 
 	virtual double	getMaxDiscount();

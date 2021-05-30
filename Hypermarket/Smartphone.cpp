@@ -2,17 +2,8 @@
 
 Smartphone::Smartphone(std::string brand, std::string productName, double price, double maxDiscount, unsigned char maxNumOfSim, bool withContract, OS operationSystem):
 	MobilePhone(brand, productName, price, maxDiscount, maxNumOfSim, withContract),
+	OperationSystem(operationSystem),
 	m_installedPrograms{}
 {
-
-}
-
-double Smartphone::getMaxDiscount()
-{
-	return Product::getMaxDiscount();
-}
-
-double Smartphone::getPrice()
-{
-	return Product::getPrice();
+	m_type = Product::Type::Smartphone;
 }

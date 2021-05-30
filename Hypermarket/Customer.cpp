@@ -7,23 +7,33 @@ Customer::Customer(double balance) :
 
 }
 
-Customer::~Customer()
+void Customer::addProduct(Product* prod)
 {
-	m_shoppingList.~vector();
+	m_shoppingList.push_back(prod);
 }
 
-double Customer::personalDiscount()
+Customer::Customer(std::string fullName, double totalCostBought, double balance):
+	m_fullName(fullName),
+	m_totalCostBought(totalCostBought),
+	m_balance(balance),
+	m_shoppingList{}
 {
-	return 0.0;
 }
 
-void Customer::buyProduct(Product* prod)
+void Customer::addProductToShopingList(Product* prod)
 {
-	if (m_balance >= prod->getPrice())
+	m_shoppingList.push_back(prod);
+}
+
+void Customer::buyProducts()
+{
+	double price = 0;
+	for (auto& prod : m_shoppingList)
 	{
-		m_balance -= prod->getPrice();
-		m_shoppingList.push_back(prod);
+		price += getFinalPriceForCustomer(prod);
 	}
-	else
-		throw std::exception("Not enough money");
+	if (m_balance >= price)
+	{
+		m_balance -= price;
+	}
 }

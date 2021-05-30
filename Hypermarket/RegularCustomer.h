@@ -6,11 +6,8 @@ class RegularCustomer :
     public Customer
 {
 public:
-    RegularCustomer(double, std::string, double totalCostBought = 0);
+    RegularCustomer(std::string fullName, double totalCostBought = 0, double balance = 0);
     virtual double	personalDiscount() override;
-    virtual void    buyProduct(Product*) override;
-private:
-    std::string m_fullName;
-    double      m_totalCostBought;
+    virtual	double	getFinalPriceForCustomer(Product* prod) override;
 };
 

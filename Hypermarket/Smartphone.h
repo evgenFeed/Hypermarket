@@ -16,10 +16,8 @@ class Smartphone :
     public MobilePhone
 {
 public:
-    Smartphone(std::string, std::string, double, double, unsigned char, bool, OS);
+    Smartphone(std::string brand, std::string productName, double price, double maxDiscount, unsigned char maxNumOfSim, bool withContract, OS operationSystem);
     virtual ~Smartphone() {}
-    virtual double	getMaxDiscount() override;
-    virtual double	getPrice() override;
 private:
 
     OS OperationSystem;
