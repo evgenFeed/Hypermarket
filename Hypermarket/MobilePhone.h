@@ -3,8 +3,9 @@
 class MobilePhone :
     public Product
 {
-    MobilePhone();
-
+public:
+    MobilePhone(std::string, std::string, double, double, unsigned char, bool);
+    virtual ~MobilePhone() {}
 private:
     unsigned char   m_maxNumOfSim;
     bool            m_withContract;

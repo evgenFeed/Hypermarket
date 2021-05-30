@@ -4,21 +4,22 @@
 #include <vector>
 #include <string>
 
+enum OS
+{
+    Android,
+    iOS,
+    WindowsPhone,
+    Unknown
+};
+
 class Smartphone :
     public MobilePhone
 {
 public:
-    Smartphone();
-
-
-    enum OS
-    {
-        Android,
-        iOS,
-        WindowsPhone,
-        Unknown
-    };
-
+    Smartphone(std::string, std::string, double, double, unsigned char, bool, OS);
+    virtual ~Smartphone() {}
+    virtual double	getMaxDiscount() override;
+    virtual double	getPrice() override;
 private:
 
     OS OperationSystem;

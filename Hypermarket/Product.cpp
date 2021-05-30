@@ -1,6 +1,6 @@
 #include "Product.h"
 
-Product::Product(std::string brand, std::string productName, double price, float maxDiscount) : 
+Product::Product(std::string brand, std::string productName, double price, double maxDiscount) : 
 	m_brand(brand),
 	m_productName(productName),
 	m_price(price),
@@ -9,12 +9,12 @@ Product::Product(std::string brand, std::string productName, double price, float
 
 }
 
-double Product::getMaxDiscount() const
+double Product::getMaxDiscount()
 {
 	return m_maxDiscount;
 }
 
-void Product::setMaxDiscount(float discount)
+double Product::getPrice()
 {
-	m_maxDiscount = discount;
+	return m_price;
 }

@@ -7,6 +7,11 @@ Customer::Customer(double balance) :
 
 }
 
+Customer::~Customer()
+{
+	m_shoppingList.~vector();
+}
+
 double Customer::personalDiscount()
 {
 	return 0.0;
@@ -14,8 +19,11 @@ double Customer::personalDiscount()
 
 void Customer::buyProduct(Product* prod)
 {
-	if (personalDiscount() > prod->getMaxDiscount())
+	if (m_balance >= prod->getPrice())
 	{
-		
+		m_balance -= prod->getPrice();
+		m_shoppingList.push_back(prod);
 	}
+	else
+		throw std::exception("Not enough money");
 }
