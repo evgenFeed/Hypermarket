@@ -4,8 +4,6 @@
 #include <stdexcept>
 
 
-
-
 class Product
 {
 public:
@@ -15,7 +13,7 @@ public:
 	virtual double	getMaxDiscount();
 	virtual double	getPrice();
 
-	bool operator< (const Product& rV) { return this->m_type > rV.m_type; }
+	bool operator< (const Product& rV) { return this->m_type < rV.m_type; }
 
 	enum Type
 	{

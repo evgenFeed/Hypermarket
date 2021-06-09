@@ -1,6 +1,6 @@
 #include "BaseCustomer.h"
 
-BaseCustomer::BaseCustomer(std::string fullName, double totalCostBought, double balance) :
+BaseCustomer::BaseCustomer(const std::string& fullName, double totalCostBought, double balance) :
 	Customer(fullName, totalCostBought, balance)
 {
 

@@ -4,8 +4,9 @@ class BaseCustomer :
     public Customer
 {
 public:
-    BaseCustomer(std::string m_fullName, double m_totalCostBought, double m_balance);
-    
+    BaseCustomer(const std::string& m_fullName, double m_totalCostBought, double m_balance);
+    ~BaseCustomer() {};
+
     double	getFinalPriceForCustomer(Product* prod) override;
     double	personalDiscount() override;
 };

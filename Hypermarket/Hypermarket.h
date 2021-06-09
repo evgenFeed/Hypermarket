@@ -8,12 +8,21 @@
 class Hypermarket
 {
 public:
-	Hypermarket();
-	~Hypermarket() { delete m_customer; };
+	Hypermarket() = default;  // Говорим компилятору сгенерировать конструктор по умолчанию
+	~Hypermarket();
 
+	void addProduct(Product* prod);
+	void removeProduct(int pos);
+
+	void addCustomer(Customer* customer);
+	void removeCustomer(int pos);
+
+	bool isEmptyCustomers();
+	bool isEmptyProducts();
 
 private:
-	Customer* m_customer;
-	std::multiset<Product*> m_availableProds;
+
+	std::vector<Customer*> m_customers;
+	std::vector<Product*> m_availableProds;
 };
 
