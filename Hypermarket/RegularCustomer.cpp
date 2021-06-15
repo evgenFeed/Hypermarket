@@ -2,7 +2,7 @@
 
 
 RegularCustomer::RegularCustomer(const std::string& fullName, double totalCostBought, double balance):
-	Customer(fullName, totalCostBought, balance)
+	BaseCustomer(fullName, totalCostBought, balance)
 {
 }
 

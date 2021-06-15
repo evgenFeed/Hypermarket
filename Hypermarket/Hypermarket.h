@@ -1,5 +1,7 @@
 #pragma once
 
+
+#include <iostream>
 #include <set>
 #include <vector>
 #include "Product.h"
@@ -14,15 +16,18 @@ public:
 	void addProduct(Product* prod);
 	void removeProduct(int pos);
 
-	void addCustomer(Customer* customer);
+	void addCustomer(BaseCustomer* customer);
 	void removeCustomer(int pos);
 
 	bool isEmptyCustomers();
 	bool isEmptyProducts();
 
+	void printProducts();
+	void printCustomers();
+
 private:
 
-	std::vector<Customer*> m_customers;
+	std::vector<BaseCustomer*> m_customers;
 	std::vector<Product*> m_availableProds;
 };
 

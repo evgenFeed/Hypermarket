@@ -1,13 +1,27 @@
 #pragma once
-#include "Customer.h"
-class BaseCustomer :
-    public Customer
+
+#include <vector>
+#include "Product.h"
+
+class BaseCustomer
 {
 public:
-    BaseCustomer(const std::string& m_fullName, double m_totalCostBought, double m_balance);
-    ~BaseCustomer() {};
+	BaseCustomer(const std::string& m_fullName, double m_totalCostBought, double m_balance);
+	virtual ~BaseCustomer();
+	
 
-    double	getFinalPriceForCustomer(Product* prod) override;
-    double	personalDiscount() override;
+	virtual std::string	Info();
+protected:
+
+	virtual double		personalDiscount() = 0;
+	virtual void		addProductToShopingList(Product* prod);
+	virtual	double		getFinalPriceForCustomer(Product* prod) = 0;
+	virtual void		buyProducts();
+	
+private:
+
+	std::vector<Product*>	m_shoppingList;
+	std::string				m_fullName;
+	double					m_totalCostBought;
+	double					m_balance;
 };
-

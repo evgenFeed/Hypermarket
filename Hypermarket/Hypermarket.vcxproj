@@ -139,8 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BaseCustomer.cpp" />
     <ClCompile Include="Customer.cpp" />
+    <ClCompile Include="BaseCustomer.cpp" />
     <ClCompile Include="Hypermarket.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MobilePhone.cpp" />
@@ -150,8 +150,8 @@
     <ClCompile Include="Smartphone.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseCustomer.h" />
     <ClInclude Include="Customer.h" />
+    <ClInclude Include="BaseCustomer.h" />
     <ClInclude Include="Hypermarket.h" />
     <ClInclude Include="MobilePhone.h" />
     <ClInclude Include="Notebook.h" />

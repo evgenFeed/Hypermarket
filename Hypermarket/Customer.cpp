@@ -1,35 +1,17 @@
 #include "Customer.h"
 
-Customer::Customer(const std::string& fullName, double totalCostBought, double balance):
-	m_fullName(fullName),
-	m_totalCostBought(totalCostBought),
-	m_balance(balance),
-	m_shoppingList{}
+Customer::Customer(const std::string& fullName, double totalCostBought, double balance) :
+	BaseCustomer(fullName, totalCostBought, balance)
 {
+	
 }
 
-Customer::~Customer()
+double Customer::getFinalPriceForCustomer(Product* prod)
 {
-	for (auto prod : m_shoppingList)
-	{
-		delete prod;
-	}	
+	return prod->getPrice();
 }
 
-void Customer::addProductToShopingList(Product* prod)
+double Customer::personalDiscount()
 {
-	m_shoppingList.push_back(prod);
-}
-
-void Customer::buyProducts()
-{
-	double price = 0;
-	for (auto& prod : m_shoppingList)
-	{
-		price += getFinalPriceForCustomer(prod);
-	}
-	if (m_balance >= price)
-	{
-		m_balance -= price;
-	}
+	return 0.0;
 }

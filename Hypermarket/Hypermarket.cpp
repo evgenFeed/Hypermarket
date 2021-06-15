@@ -25,7 +25,7 @@ void Hypermarket::removeProduct(int pos)
 	m_availableProds.erase(m_availableProds.begin() + pos);
 }
 
-void Hypermarket::addCustomer(Customer* customer)
+void Hypermarket::addCustomer(BaseCustomer* customer)
 {
 	m_customers.push_back(customer);
 }
@@ -43,4 +43,22 @@ bool Hypermarket::isEmptyCustomers()
 bool Hypermarket::isEmptyProducts()
 {
 	return m_availableProds.empty();
+}
+
+void Hypermarket::printProducts()
+{
+	int i = 1;
+	for (const auto& prod : m_availableProds)
+	{
+		std::cout << i++ << ' ' << prod->Info() << std::endl;
+	}
+}
+
+void Hypermarket::printCustomers()
+{
+	int i = 1;
+	for (const auto& cust : m_customers)
+	{
+		std::cout << i++ << ' ' << cust->Info() << std::endl;
+	}
 }

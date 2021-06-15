@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Customer.h"
+#include "BaseCustomer.h"
 
 class RegularCustomer :
-    public Customer
+    public BaseCustomer
 {
 public:
     RegularCustomer(const std::string& fullName, double totalCostBought = 0, double balance = 0);

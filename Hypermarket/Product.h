@@ -2,7 +2,8 @@
 
 #include <string>
 #include <stdexcept>
-
+#include <iostream>
+#include <string>
 
 class Product
 {
@@ -15,6 +16,8 @@ public:
 
 	bool operator< (const Product& rV) { return this->m_type < rV.m_type; }
 
+	virtual std::string Info();
+
 	enum Type
 	{
 		Smartphone,
@@ -23,10 +26,10 @@ public:
 	};
 
 protected:
-	Type m_type;
-
+	Type	m_type;
+	virtual void checkInput();
 private:
-
+	
 	std::string		m_brand;
 	std::string		m_productName;
 	double			m_price;
