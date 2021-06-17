@@ -13,5 +13,5 @@ double RegularCustomer::personalDiscount()
 
 double RegularCustomer::getFinalPriceForCustomer(Product* prod)
 {
-	return prod->getPrice() - ((prod->getPrice() * personalDiscount()) / 100);
+	return prod->getPrice() - ((prod->getPrice() * personalDiscount()) / 100); // учитывание скидки товара
 }

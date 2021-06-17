@@ -8,7 +8,7 @@ public:
             double screenDiagonal, double weight, unsigned int numOfCPUCores, unsigned int amountOfRAM);
     ~Notebook(){}
 
-    std::string Info() override;
+    std::string Info() const override;
 
 protected:
     void checkInput() override;

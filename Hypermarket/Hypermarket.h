@@ -4,6 +4,7 @@
 #include <iostream>
 #include <set>
 #include <vector>
+#include <memory>
 #include "Product.h"
 #include "Customer.h"
 
@@ -11,12 +12,12 @@ class Hypermarket
 {
 public:
 	Hypermarket() = default;  // Говорим компилятору сгенерировать конструктор по умолчанию
-	~Hypermarket();
+	~Hypermarket() = default; 
 
-	void addProduct(Product* prod);
+	void addProduct(std::shared_ptr<Product> prod);
 	void removeProduct(int pos);
 
-	void addCustomer(BaseCustomer* customer);
+	void addCustomer(std::shared_ptr<BaseCustomer> customer);
 	void removeCustomer(int pos);
 
 	bool isEmptyCustomers();
@@ -25,9 +26,10 @@ public:
 	void printProducts();
 	void printCustomers();
 
+
 private:
 
-	std::vector<BaseCustomer*> m_customers;
-	std::vector<Product*> m_availableProds;
+	std::vector<std::shared_ptr<BaseCustomer>> m_customers;
+	std::vector<std::shared_ptr<Product>> m_availableProds;
 };
 

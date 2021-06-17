@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include "Hypermarket.h"
 #include "Product.h"
 #include "Notebook.h"
@@ -11,12 +12,11 @@ void test()
 	try
 	{
 		Hypermarket hypermarket;
-		Product* prod = new Smartphone("Apple", "IPhone", -900, 1, 2, false, Smartphone::iOS);
+		shared_ptr<Product> prod = make_shared<Smartphone>("Apple", "IPhone", -900, 1, 2, false, Smartphone::iOS);
 		hypermarket.addProduct(prod);
-		prod = new Notebook("Apple", "macBook", 1900, 1, 15, 1, 8, 16384);
+		prod = make_shared<Notebook>("Apple", "macBook", 1900, 1, 15, 1, 8, 16384);
 		hypermarket.addProduct(prod);
 		hypermarket.printProducts();
-		delete prod;
 	}
 	catch (exception& e)
 	{
@@ -28,12 +28,12 @@ int main()
 {
 	int n;
 	Hypermarket hypermarket;
-	BaseCustomer* customer = nullptr;
-	Product* prod = nullptr;
+	shared_ptr<Customer> customer;
+	shared_ptr<Product> prod;
 	string brand, productName;
 	double price, maxDiscount;
 	bool testb = false;
-	while (true)
+	while (testb)
 	{
 		cout << "Choose role:" << endl;
 		cout << "1. Administrator" << endl;
@@ -51,8 +51,9 @@ int main()
 				cout << "You can add or remove some products or customers" << endl;
 				cout << "What do you want to do?" << endl;
 				cout << "1. Add product" << endl;
-				cout << "2. Remove product" << endl;
-				cout << "3. Add customer" << endl;
+				cout << "2. Remove product" << endl; 
+														// editProduct ???
+				cout << "3. Add customer" << endl;		
 				cout << "4. Remove customer" << endl;
 				cout << "0. Exit to menu" << endl;
 				cin >> n2;
@@ -86,7 +87,7 @@ int main()
 						cin >> numOfCPUCores;
 						cout << "Amount of RAM (in MB): ";
 						cin >> amountOfRAM;
-						prod = new Notebook(brand, productName, price, maxDiscount, screenDiagonal, weight, numOfCPUCores, amountOfRAM);
+						prod = make_shared<Notebook>(new Notebook(brand, productName, price, maxDiscount, screenDiagonal, weight, numOfCPUCores, amountOfRAM));
 						hypermarket.addProduct(prod);
 						
 					case 2: // Add Product - Smartphone
@@ -95,7 +96,6 @@ int main()
 						bool withContract;
 						int osEnter;
 						Smartphone::OS operationSystem;
-						
 						cout << "Enter fields of Smartphone" << endl;
 						cout << "Brand: ";
 						cin >> brand;
@@ -113,11 +113,11 @@ int main()
 						cout << "Operation system: (1. Android. 2. iOS. 3. WindowsPhone. 4. Another)";
 						cin >> osEnter;
 						operationSystem = (osEnter <= 4 && osEnter >= 1) ? static_cast<Smartphone::OS>(osEnter) : Smartphone::OS::Unknown;
-						prod = new Smartphone(brand, productName, price, maxDiscount, maxNumOfSim, withContract, operationSystem);
+						prod = make_shared<Smartphone>(new Smartphone(brand, productName, price, maxDiscount, maxNumOfSim, withContract, operationSystem));
 						hypermarket.addProduct(prod);
 						break;
-					default: // Add Product default
 
+					default: // Add Product default
 						break;
 
 					}
@@ -125,7 +125,10 @@ int main()
 				case 2: // Remove product
 					if (hypermarket.isEmptyProducts() != true)
 					{
+						int pos;
 						cout << "Choose product you want to remove:" << endl;
+						cin >> pos;
+						hypermarket.removeProduct(pos);
 					}
 					cout << "Hypermarket product list is empty!" << endl;
 					break;
@@ -140,7 +143,8 @@ int main()
 					break;
 				}
 				break;
-			case 2: // Customer
+			case 2: // Customer 
+
 				break;
 			case 0: // Exit
 				exitCase1 = true;
@@ -156,9 +160,10 @@ int main()
 		catch (const exception& e)
 		{
 			cerr << e.what() << endl;
+
 		}
 	}
-	delete prod, customer;
+	
 	test();
 
 	return 0;

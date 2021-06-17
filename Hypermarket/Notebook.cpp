@@ -8,10 +8,11 @@ Notebook::Notebook(const std::string& brand, const std::string& productName, dou
 	m_amountOfRAM(amountOfRAM),
 	m_weight(weight)
 {
+	m_type = Product::Type::Notebook;
 	checkInput();
 }
 
-std::string Notebook::Info()
+std::string Notebook::Info() const
 {
 	return Product::Info() + "\nscreen diagonal: " + std::to_string(m_screenDiagonal)
 		+ "\nnumber of CPU cores: " + std::to_string(m_numOfCPUCores)

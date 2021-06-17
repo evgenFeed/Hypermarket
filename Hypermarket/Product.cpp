@@ -9,17 +9,17 @@ Product::Product(std::string brand, std::string productName, double price, doubl
 	checkInput();
 }
 
-double Product::getMaxDiscount()
+double Product::getMaxDiscount() const
 {
 	return m_maxDiscount;
 }
 
-double Product::getPrice()
+double Product::getPrice() const
 {
 	return m_price;
 }
 
-std::string Product::Info()
+std::string Product::Info() const
 {
 	return "Product: \nbrand: " + m_brand + "\nproduct name: "
 			+ m_productName + "\nprice: " 

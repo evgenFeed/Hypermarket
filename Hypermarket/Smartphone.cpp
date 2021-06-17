@@ -10,7 +10,7 @@ Smartphone::Smartphone(std::string brand, std::string productName, double price,
 	checkInput();
 }
 
-std::string Smartphone::Info()
+std::string Smartphone::Info() const
 {
 	std::string result = Product::Info() + "\noperation system: " + wichOS(OperationSystem)
 			+ "\ninstalledPrograms: ";

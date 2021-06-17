@@ -2,20 +2,7 @@
 
 
 
-Hypermarket::~Hypermarket()
-{
-	for(auto prod : m_availableProds)
-	{
-		delete prod;
-	}
-
-	for (auto cust : m_customers)
-	{
-		delete cust;
-	}
-}
-
-void Hypermarket::addProduct(Product* prod)
+void Hypermarket::addProduct(std::shared_ptr<Product> prod)
 {
 	m_availableProds.push_back(prod);
 }
@@ -25,7 +12,7 @@ void Hypermarket::removeProduct(int pos)
 	m_availableProds.erase(m_availableProds.begin() + pos);
 }
 
-void Hypermarket::addCustomer(BaseCustomer* customer)
+void Hypermarket::addCustomer(std::shared_ptr<BaseCustomer> customer)
 {
 	m_customers.push_back(customer);
 }
