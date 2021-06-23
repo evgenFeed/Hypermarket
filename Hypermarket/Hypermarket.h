@@ -4,32 +4,48 @@
 #include <iostream>
 #include <set>
 #include <vector>
-#include <memory>
+#include <algorithm>
 #include "Product.h"
 #include "Customer.h"
 
 class Hypermarket
 {
 public:
-	Hypermarket() = default;  // Говорим компилятору сгенерировать конструктор по умолчанию
+	Hypermarket() = default; 
 	~Hypermarket() = default; 
 
-	void addProduct(std::shared_ptr<Product> prod);
+	void addProduct(Product* prod);
 	void removeProduct(int pos);
 
-	void addCustomer(std::shared_ptr<BaseCustomer> customer);
+	void addCustomer(BaseCustomer* customer);
 	void removeCustomer(int pos);
 
-	bool isEmptyCustomers();
-	bool isEmptyProducts();
+	bool isEmptyCustomers() const;
+	bool isEmptyProducts() const;
 
-	void printProducts();
-	void printCustomers();
+	void printProducts() const;
+	void printCustomers() const;
 
+	BaseCustomer* getCustomer(const std::string& fullName)
+	{
+		if (isCustomerExist(fullName))
+		{
+			return *std::find_if(m_customers.begin(), m_customers.end(), [fullName](BaseCustomer* val) { return (val->getName() == fullName); });
+		}
+
+		else
+			return nullptr;
+	}
 
 private:
-
-	std::vector<std::shared_ptr<BaseCustomer>> m_customers;
-	std::vector<std::shared_ptr<Product>> m_availableProds;
+	//Проверяет наличие покупателя по имени
+	bool isCustomerExist(const std::string& fullName) const
+	{ 
+		return std::count_if(m_customers.begin(), m_customers.end(), [fullName](BaseCustomer* customer) {
+			return customer->getName() == fullName;
+		});
+	}
+	std::vector<BaseCustomer*>	m_customers;
+	std::vector<Product*>		m_availableProds;
 };
 

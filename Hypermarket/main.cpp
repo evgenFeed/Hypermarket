@@ -12,11 +12,20 @@ void test()
 	try
 	{
 		Hypermarket hypermarket;
-		shared_ptr<Product> prod = make_shared<Smartphone>("Apple", "IPhone", -900, 1, 2, false, Smartphone::iOS);
-		hypermarket.addProduct(prod);
-		prod = make_shared<Notebook>("Apple", "macBook", 1900, 1, 15, 1, 8, 16384);
-		hypermarket.addProduct(prod);
-		hypermarket.printProducts();
+		for (int i = 0; i < 10; i++)
+		{
+			hypermarket.addProduct(new Smartphone("Apple", "IPhone", 900, 1, 2, false, Smartphone::iOS));
+		}
+		hypermarket.addProduct(new Notebook("Apple", "MacBook Pro", 1900, 1, 15, 1, 8, 8096));
+		hypermarket.addProduct(new Notebook("Microsoft", "SurfaceBook", 1000, 1, 15, 1, 8, 8096));
+		Product* prod = new Notebook("Microsoft", "SurfaceBook", 1000, 1, 15, 1, 8, 8096);
+		
+		prod = new Notebook("Apple", "MacBook Pro", 1900, 1, 15, 1, 8, 8096);
+		//hypermarket.addProduct(prod);
+		//prod = make_shared<Notebook>("Apple", "macBook", 1900, 1, 15, 1, 8, 16384);
+		//hypermarket.addProduct(make_shared<Notebook>(new Notebook("Apple", "macBook", 1900, 1, 15, 1, 8, 16384)));
+		//hypermarket.printProductsSHRPTR();
+
 	}
 	catch (exception& e)
 	{
@@ -28,8 +37,8 @@ int main()
 {
 	int n;
 	Hypermarket hypermarket;
-	shared_ptr<Customer> customer;
-	shared_ptr<Product> prod;
+	BaseCustomer* customer;
+	Product* prod;
 	string brand, productName;
 	double price, maxDiscount;
 	bool testb = false;
@@ -52,9 +61,9 @@ int main()
 				cout << "What do you want to do?" << endl;
 				cout << "1. Add product" << endl;
 				cout << "2. Remove product" << endl; 
-														// editProduct ???
-				cout << "3. Add customer" << endl;		
-				cout << "4. Remove customer" << endl;
+				cout << "3. Edit product" << endl;   // editProduct ???
+				cout << "4. Add customer" << endl;		
+				cout << "5. Remove customer" << endl;
 				cout << "0. Exit to menu" << endl;
 				cin >> n2;
 				switch (n2)
@@ -87,9 +96,8 @@ int main()
 						cin >> numOfCPUCores;
 						cout << "Amount of RAM (in MB): ";
 						cin >> amountOfRAM;
-						prod = make_shared<Notebook>(new Notebook(brand, productName, price, maxDiscount, screenDiagonal, weight, numOfCPUCores, amountOfRAM));
+						prod = new Notebook(brand, productName, price, maxDiscount, screenDiagonal, weight, numOfCPUCores, amountOfRAM);
 						hypermarket.addProduct(prod);
-						
 					case 2: // Add Product - Smartphone
 						unsigned char maxNumOfSim;
 						char withContractEnter;
@@ -113,8 +121,8 @@ int main()
 						cout << "Operation system: (1. Android. 2. iOS. 3. WindowsPhone. 4. Another)";
 						cin >> osEnter;
 						operationSystem = (osEnter <= 4 && osEnter >= 1) ? static_cast<Smartphone::OS>(osEnter) : Smartphone::OS::Unknown;
-						prod = make_shared<Smartphone>(new Smartphone(brand, productName, price, maxDiscount, maxNumOfSim, withContract, operationSystem));
-						hypermarket.addProduct(prod);
+						prod = new Smartphone(brand, productName, price, maxDiscount, maxNumOfSim, withContract, operationSystem);
+						//hypermarket.addProduct(prod);
 						break;
 
 					default: // Add Product default
@@ -132,9 +140,11 @@ int main()
 					}
 					cout << "Hypermarket product list is empty!" << endl;
 					break;
-				case 3: // Add Customer
+				case 3: // Edit Product
 					break;
-				case 4: // Remove Customer
+				case 4: // Add Customer
+					break;
+				case 5: // Remove Customer
 					break;
 				case 0:
 					exitCase1 = true;
@@ -144,8 +154,28 @@ int main()
 				}
 				break;
 			case 2: // Customer 
+			{
+				double money = 0;
+				string fullName = "";
+				cout << "Hello, enter your name: ";
+				getline(cin, fullName);
+				cout << "Welcome to hypermarket, " << fullName << " !" << endl;
+				customer = hypermarket.getCustomer(fullName);
+				if (customer != nullptr)
+				{
+					cout << customer->Info();
+				}
+				else
+				{
+					cout << "Enter how much money you have: ";
+					cin >> money;
+					customer = new Customer(fullName, 0, money);
+				}
+				cout << "";
+				
 
 				break;
+			}
 			case 0: // Exit
 				exitCase1 = true;
 				break;
@@ -160,9 +190,9 @@ int main()
 		catch (const exception& e)
 		{
 			cerr << e.what() << endl;
-
 		}
 	}
+	delete customer, prod;
 	
 	test();
 

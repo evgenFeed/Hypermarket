@@ -10,6 +10,7 @@ public:
 	virtual ~BaseCustomer();
 	
 	virtual std::string	Info();
+	std::string			getName() const { return m_fullName; }
 protected:
 
 	virtual double		personalDiscount() = 0;
@@ -18,7 +19,7 @@ protected:
 	virtual void		addProductToShopingList(Product* prod);
 	virtual void		buyProducts();
 
-	double					m_totalCostBought;
+	double				m_totalCostBought;
 private:
 
 	std::vector<Product*>	m_shoppingList;
