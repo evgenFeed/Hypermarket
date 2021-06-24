@@ -21,10 +21,13 @@ double Product::getPrice() const
 
 std::string Product::Info() const
 {
-	return "Product: \nbrand: " + m_brand + "\nproduct name: "
+	std::stringstream ss;
+
+	ss << "Product: \nbrand: " << m_brand + "\nproduct name: "
 			+ m_productName + "\nprice: " 
-			+ std::to_string(m_price) + "\nmax discount: " 
-			+ std::to_string(m_maxDiscount);
+			<< std::setprecision(2) << std::fixed << m_price << "\nmax discount: " 
+			<< m_maxDiscount;
+	return ss.str();
 }
 
 void Product::checkInput()

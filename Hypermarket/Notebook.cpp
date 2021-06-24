@@ -14,10 +14,12 @@ Notebook::Notebook(const std::string& brand, const std::string& productName, dou
 
 std::string Notebook::Info() const
 {
-	return Product::Info() + "\nscreen diagonal: " + std::to_string(m_screenDiagonal)
-		+ "\nnumber of CPU cores: " + std::to_string(m_numOfCPUCores)
-		+ "\namount of RAM: " + std::to_string(m_amountOfRAM)
-		+ "\nweight: " + std::to_string(m_weight) + '\n';
+	std::stringstream ss;
+	ss << Product::Info() + "\nscreen diagonal: " << std::setprecision(2) << m_screenDiagonal
+		<< "\nnumber of CPU cores: " << m_numOfCPUCores
+		<< "\namount of RAM: " << m_amountOfRAM << " MB"
+		<< "\nweight: " << m_weight << '\n';
+	return ss.str();
 }
 
 void Notebook::checkInput()

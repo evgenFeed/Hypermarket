@@ -4,7 +4,8 @@
 #include <stdexcept>
 #include <iostream>
 #include <string>
-
+#include <sstream>
+#include <iomanip>
 
 class Product
 {

@@ -1,9 +1,11 @@
 #include <iostream>
 #include <memory>
+#include <iomanip>
 #include "Hypermarket.h"
 #include "Product.h"
 #include "Notebook.h"
 #include "Smartphone.h"
+
 
 using namespace std;
 
@@ -33,22 +35,28 @@ void test()
 	}
 }
 
+//Product* changeProduct(Product* prod)
+//{
+//
+//}
+
 int main()
 {
 	int n;
 	Hypermarket hypermarket;
-	BaseCustomer* customer;
-	Product* prod;
+	BaseCustomer* customer = nullptr;
+	Product* prod = nullptr;
 	string brand, productName;
 	double price, maxDiscount;
-	bool testb = false;
+	bool testb = true;
 	while (testb)
 	{
-		cout << "Choose role:" << endl;
+		cout << "Choose:" << endl;
 		cout << "1. Administrator" << endl;
 		cout << "2. Customer" << endl;
 		cout << "0. Exit" << endl;
 		cin >> n;
+		system("cls");
 		try
 		{
 			bool exitCase1 = false;
@@ -57,15 +65,16 @@ int main()
 			case 1: //Admin
 				int n2;
 				cout << "Hello Administrator!" << endl;
-				cout << "You can add or remove some products or customers" << endl;
+				cout << "You can add or remove some products or customers or edit product" << endl;
 				cout << "What do you want to do?" << endl;
 				cout << "1. Add product" << endl;
 				cout << "2. Remove product" << endl; 
-				cout << "3. Edit product" << endl;   // editProduct ???
-				cout << "4. Add customer" << endl;		
-				cout << "5. Remove customer" << endl;
+				cout << "3. Edit product" << endl;   // editProduct ???		
+				cout << "4. Remove customer" << endl;
+				cout << "5. Print products" << endl;
 				cout << "0. Exit to menu" << endl;
 				cin >> n2;
+				system("cls");
 				switch (n2)
 				{
 				case 1: // Add Product
@@ -74,6 +83,7 @@ int main()
 					cout << "1. Notebook" << endl;
 					cout << "2. Smartphone" << endl;
 					cin >> n3;
+					system("cls");
 					switch (n3)
 					{
 					case 1: // Add Product - Notebook
@@ -98,6 +108,8 @@ int main()
 						cin >> amountOfRAM;
 						prod = new Notebook(brand, productName, price, maxDiscount, screenDiagonal, weight, numOfCPUCores, amountOfRAM);
 						hypermarket.addProduct(prod);
+						system("cls");
+						break;
 					case 2: // Add Product - Smartphone
 						unsigned char maxNumOfSim;
 						char withContractEnter;
@@ -118,11 +130,12 @@ int main()
 						cout << "with contract or not (1 - true, 0 - false): ";
 						cin >> withContractEnter;
 						withContract = (withContractEnter == '1') ? true : false;
-						cout << "Operation system: (1. Android. 2. iOS. 3. WindowsPhone. 4. Another)";
+						cout << "Operation system: (1. Android. 2. iOS. 3. WindowsPhone. 4. Another)" << endl;
 						cin >> osEnter;
 						operationSystem = (osEnter <= 4 && osEnter >= 1) ? static_cast<Smartphone::OS>(osEnter) : Smartphone::OS::Unknown;
 						prod = new Smartphone(brand, productName, price, maxDiscount, maxNumOfSim, withContract, operationSystem);
-						//hypermarket.addProduct(prod);
+						hypermarket.addProduct(prod);
+						system("cls");
 						break;
 
 					default: // Add Product default
@@ -133,18 +146,48 @@ int main()
 				case 2: // Remove product
 					if (hypermarket.isEmptyProducts() != true)
 					{
+						hypermarket.printProducts();
 						int pos;
 						cout << "Choose product you want to remove:" << endl;
 						cin >> pos;
 						hypermarket.removeProduct(pos);
 					}
 					cout << "Hypermarket product list is empty!" << endl;
+					system("cls");
 					break;
 				case 3: // Edit Product
+				{
+					hypermarket.printProducts();
+					cout << "Which product you wanna edit?";
+					int posProduct = 0;
+					cin >> posProduct;
+					prod = hypermarket.getProduct(posProduct);
+					hypermarket.removeProduct(posProduct);
+					system("cls");
+					cout << setprecision(2) << prod->Info();
+					cout << endl;
+					system("cls");
 					break;
-				case 4: // Add Customer
+				}
+				case 4: // Remove Customer
+				{
+					hypermarket.printCustomers();
+					cout << "Which customer you wanna remove?" << endl;
+					int posCustomer = 0;
+					cin >> posCustomer;
+					if (posCustomer <= 0 || posCustomer > hypermarket.getCustomersAmount())
+					{
+						throw invalid_argument("Wrong pos!");
+					}
+					else
+					{
+						hypermarket.removeCustomer(posCustomer);
+					}
+					system("cls");
 					break;
-				case 5: // Remove Customer
+				}
+				case 5:
+					hypermarket.printProducts();
 					break;
 				case 0:
 					exitCase1 = true;
@@ -158,27 +201,74 @@ int main()
 				double money = 0;
 				string fullName = "";
 				cout << "Hello, enter your name: ";
+				cin.ignore();
 				getline(cin, fullName);
 				cout << "Welcome to hypermarket, " << fullName << " !" << endl;
 				customer = hypermarket.getCustomer(fullName);
 				if (customer != nullptr)
 				{
-					cout << customer->Info();
+					cout <<  customer->Info();
 				}
 				else
 				{
 					cout << "Enter how much money you have: ";
 					cin >> money;
 					customer = new Customer(fullName, 0, money);
+					hypermarket.addCustomer(customer);
 				}
-				cout << "";
-				
-
+				hypermarket.printProducts();
+				bool cart = true;
+				while (cart)
+				{
+					cout << "Wanna add something to cart? (Y/N)" << endl;
+					char agreement;
+					int posProduct = 0;
+					cin >> agreement;
+					if (agreement == 'Y' || agreement == 'y')
+					{
+						cout << "Enter product number what you wanna add:";
+						cin >> posProduct;
+						customer->addProductToShopingList(hypermarket.getProduct(posProduct));
+					}
+					else
+					{
+						cart = false;
+					}
+				}
+				cout << "Your cart:" << endl;
+				customer->printShopingList();
+				cart = true;
+				while (cart)
+				{
+					cout << "Wanna remove something from cart? (Y/N)" << endl;
+					char agreement;
+					int posProduct = 0;
+					cin >> agreement;
+					if (agreement == 'Y' || agreement == 'y')
+					{
+						cout << "Enter product number what you wanna remove: ";
+						cin >> posProduct;
+						if (posProduct <= 0 || posProduct > customer->getAmountOfProdsAtShopingList())
+						{
+							throw invalid_argument("Wrong number");
+						}
+						else
+						{
+							customer->removeProductFromShopingList(posProduct);
+						}
+					}
+					else
+					{
+						cart = false;
+					}
+				}
+				customer->buyProducts();
 				break;
 			}
 			case 0: // Exit
 				exitCase1 = true;
 				break;
+				
 			default:
 				break;
 			}
@@ -186,6 +276,7 @@ int main()
 			{
 				break;
 			}
+
 		}
 		catch (const exception& e)
 		{
@@ -194,7 +285,7 @@ int main()
 	}
 	delete customer, prod;
 	
-	test();
+	//test();
 
 	return 0;
 }
