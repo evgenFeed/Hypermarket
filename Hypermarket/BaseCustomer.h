@@ -6,7 +6,7 @@
 class BaseCustomer
 {
 public:
-	BaseCustomer(const std::string& m_fullName, double m_totalCostBought, double m_balance);
+	BaseCustomer(const std::string& fullName, double totalCostBought, double balance);
 	virtual ~BaseCustomer();
 	
 	virtual std::string	Info();

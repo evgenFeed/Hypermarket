@@ -13,13 +13,20 @@ public:
 	Product(std::string brand, std::string productName, double price, double maxDiscount);
 	virtual ~Product() {}
 
-	virtual double	getMaxDiscount() const;
-	virtual double	getPrice() const;
+	virtual double		getMaxDiscount() const { return m_maxDiscount; }
+	virtual double		getPrice() const { return m_price; }
+	virtual std::string getBrand() const { return m_brand; }
+	virtual std::string getProductName() const { return m_productName; }
+
+	void setBrand(std::string brand) { m_brand = brand; }
+	void setProductName(std::string productName) { m_productName = productName; }
+	void setPrice(double price) { m_price = price; }
+	void setMaxDiscount(double discount) { m_maxDiscount = discount; }
 
 	bool operator< (const Product& rV) { return this->m_type < rV.m_type; }
 
 	virtual std::string Info() const;
-
+	
 	enum Type
 	{
 		Smartphone,
@@ -27,6 +34,7 @@ public:
 		Unknown
 	};
 
+	Type getType() const { return m_type; }
 
 protected:
 	Type	m_type;

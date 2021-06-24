@@ -35,10 +35,174 @@ void test()
 	}
 }
 
-//Product* changeProduct(Product* prod)
-//{
-//
-//}
+Smartphone* editSmartphone(Smartphone* smart)
+{
+	string brand, productName;
+	double price, maxDiscount;
+	unsigned char maxNumOfSim;
+	int osEnter;
+	Smartphone::OS operationSystem;
+	char agreement;
+	cout << smart->getBrand() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin.ignore();
+		getline(cin, brand);
+		smart->setBrand(brand);
+	}
+	cout << smart->getProductName() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin.ignore();
+		getline(cin, productName);
+		smart->setProductName(productName);
+	}
+	cout << smart->getMaxDiscount() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin >> maxDiscount;
+		smart->setMaxDiscount(maxDiscount);
+	}
+	cout << smart->getMaxNumberOfSim() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin >> maxNumOfSim;
+		smart->setMaxNumOfSim(maxNumOfSim);
+	}
+	cout << smart->getPrice() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin >> price;
+		smart->setPrice(price);
+	}
+	cout << smart->getOS() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Operation system: (1. Android. 2. iOS. 3. WindowsPhone. 4. Another) " << endl;
+		cout << "Enter new value: ";
+		cin >> osEnter;
+		operationSystem = (osEnter <= 4 && osEnter >= 1) ? static_cast<Smartphone::OS>(osEnter) : Smartphone::OS::Unknown;
+		smart->setOS(operationSystem);
+	}
+	return smart;
+}
+
+Notebook* editNotebook(Notebook* note)
+{
+	string brand, productName;
+	double price, maxDiscount;
+	double screenDiagonal, weight;
+	unsigned int numOfCPUCores, amountOfRAM;
+	char agreement;
+	cout << note->getBrand() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin.ignore();
+		getline(cin, brand);
+		note->setBrand(brand);
+	}
+	cout << note->getProductName() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin.ignore();
+		getline(cin, productName);
+		note->setProductName(productName);
+	}
+	cout << note->getMaxDiscount() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin >> maxDiscount;
+		note->setMaxDiscount(maxDiscount);
+	}
+	cout << note->getPrice() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin >> price;
+		note->setPrice(price);
+	}
+	cout << note->getScreenDiagonal() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin >> screenDiagonal;
+		note->setScreenDiagonal(screenDiagonal);
+	}
+	cout << note->getWeight() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin >> weight;
+		note->setWeight(weight);
+	}
+	cout << note->getNumOfCPUCores() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin >> numOfCPUCores;
+		note->setNumOfCPUCores(numOfCPUCores);
+	}
+	cout << note->getAmountOfRAM() << " edit? (y/n) ";
+	cin >> agreement;
+	if (agreement == 'Y' || agreement == 'y')
+	{
+		cout << "Enter new value: ";
+		cin >> amountOfRAM;
+		note->setAmountOfRAM(amountOfRAM);
+	}
+	return note;
+}
+
+Product* editProduct(Product* prod)
+{
+	Product* product = nullptr;
+	Smartphone* smartphone = nullptr;
+	Notebook* notebook = nullptr;
+	cout << prod->Info();
+	switch (prod->getType())
+	{
+	case Product::Type::Smartphone:
+		smartphone = dynamic_cast<Smartphone*>(prod);
+		break;
+	case Product::Type::Notebook:
+		notebook = dynamic_cast<Notebook*>(prod);
+		break;
+	default:
+		throw invalid_argument("Unknown type product");
+	}
+	if (smartphone != nullptr)
+	{
+		smartphone = editSmartphone(smartphone);
+		product = smartphone;
+	}
+	else if (notebook != nullptr)
+	{
+		notebook = editNotebook(notebook);
+		product = notebook;
+	}
+	return product;
+}
 
 int main()
 {
@@ -91,9 +255,10 @@ int main()
 						unsigned int numOfCPUCores, amountOfRAM;
 						cout << "Enter fields of Notebook" << endl;
 						cout << "Brand: ";
-						cin >> brand;
+						cin.ignore();
+						getline(cin,brand);
 						cout << "Name of product: ";
-						cin >> productName;
+						getline(cin,productName);
 						cout << "Price: ";
 						cin >> price;
 						cout << "Max discount of product: ";
@@ -112,15 +277,15 @@ int main()
 						break;
 					case 2: // Add Product - Smartphone
 						unsigned char maxNumOfSim;
-						char withContractEnter;
 						bool withContract;
 						int osEnter;
 						Smartphone::OS operationSystem;
 						cout << "Enter fields of Smartphone" << endl;
 						cout << "Brand: ";
-						cin >> brand;
+						cin.ignore();
+						getline(cin, brand);
 						cout << "Name of product: ";
-						cin >> productName;
+						getline(cin, productName);
 						cout << "Price: ";
 						cin >> price;
 						cout << "Max discount of product: ";
@@ -128,8 +293,7 @@ int main()
 						cout << "Max number of SIM cards: ";
 						cin >> maxNumOfSim;
 						cout << "with contract or not (1 - true, 0 - false): ";
-						cin >> withContractEnter;
-						withContract = (withContractEnter == '1') ? true : false;
+						cin >> withContract;
 						cout << "Operation system: (1. Android. 2. iOS. 3. WindowsPhone. 4. Another)" << endl;
 						cin >> osEnter;
 						operationSystem = (osEnter <= 4 && osEnter >= 1) ? static_cast<Smartphone::OS>(osEnter) : Smartphone::OS::Unknown;
@@ -152,21 +316,37 @@ int main()
 						cin >> pos;
 						hypermarket.removeProduct(pos);
 					}
-					cout << "Hypermarket product list is empty!" << endl;
+					else
+					{
+						cout << "Hypermarket product list is empty!" << endl;
+					}
 					system("cls");
 					break;
 				case 3: // Edit Product
 				{
-					hypermarket.printProducts();
-					cout << "Which product you wanna edit?";
-					int posProduct = 0;
-					cin >> posProduct;
-					prod = hypermarket.getProduct(posProduct);
-					hypermarket.removeProduct(posProduct);
-					system("cls");
-					cout << setprecision(2) << prod->Info();
-					cout << endl;
-					system("cls");
+					if (hypermarket.isEmptyProducts() != true)
+					{
+						hypermarket.printProducts();
+						cout << endl << "Enter which product you wanna edit or 0 to cancel." << endl;
+						int posProduct = 0;
+						cin >> posProduct;
+						if (posProduct < 0 || posProduct > hypermarket.getProductsAmount())
+						{
+							throw invalid_argument("Wrong number");
+						}
+						else if (posProduct == 0)
+						{
+							break;
+						}
+						else
+						{
+							prod = hypermarket.getProduct(posProduct);
+							hypermarket.removeProduct(posProduct);
+							system("cls");
+							hypermarket.addProduct(editProduct(prod));
+							system("cls");
+						}
+					}
 					break;
 				}
 				case 4: // Remove Customer

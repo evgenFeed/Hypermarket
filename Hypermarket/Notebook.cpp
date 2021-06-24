@@ -22,6 +22,40 @@ std::string Notebook::Info() const
 	return ss.str();
 }
 
+void Notebook::setScreenDiagonal(double screenDiagonal)
+{
+	if (screenDiagonal <= 0)
+	{
+		throw std::invalid_argument("Wrong input!");
+	}
+	else
+	{
+		m_screenDiagonal = screenDiagonal;
+	}
+}
+
+void Notebook::setWeight(double weight)
+{
+	if (weight <= 0)
+	{
+		throw std::invalid_argument("Wrong input!");
+	}
+	else
+	{
+		m_weight = weight;
+	}
+}
+
+void Notebook::setNumOfCPUCores(unsigned int numOfCPUCores)
+{
+	m_numOfCPUCores = numOfCPUCores;
+}
+
+void Notebook::setAmountOfRAM(unsigned int amountOfRAM)
+{
+	m_amountOfRAM = amountOfRAM;
+}
+
 void Notebook::checkInput()
 {
 	Product::checkInput();

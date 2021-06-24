@@ -9,6 +9,15 @@ public:
     ~Notebook(){}
 
     std::string Info() const override;
+    double          getScreenDiagonal() const { return m_screenDiagonal; }
+    double          getWeight() const { return m_weight; }
+    unsigned int    getNumOfCPUCores() const { return m_numOfCPUCores; }
+    unsigned int    getAmountOfRAM() const { return m_amountOfRAM; }
+
+    void setScreenDiagonal(double screenDiagonal);
+    void setWeight(double weight);
+    void setNumOfCPUCores(unsigned int numOfCPUCores);
+    void setAmountOfRAM(unsigned int amountOfRAM);
 
 protected:
     void checkInput() override;

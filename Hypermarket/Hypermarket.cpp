@@ -4,7 +4,14 @@
 
 Hypermarket::~Hypermarket()
 {
-
+	for (auto prod : m_availableProds)
+	{
+		delete prod;
+	}
+	for (auto customer : m_customers)
+	{
+		delete customer;
+	}
 }
 
 void Hypermarket::addProduct(Product* prod)
@@ -14,8 +21,7 @@ void Hypermarket::addProduct(Product* prod)
 
 void Hypermarket::removeProduct(int pos)
 {
-	delete m_availableProds[pos];
-	m_availableProds.erase(m_availableProds.begin() + pos);
+	m_availableProds.erase(m_availableProds.begin() + pos-1);
 }
 
 void Hypermarket::addCustomer(BaseCustomer* customer)
