@@ -6,14 +6,12 @@ BaseCustomer::BaseCustomer(const std::string& fullName, double totalCostBought, 
 	m_balance(balance),
 	m_shoppingList{}
 {
+	checkInput();
 }
 
 BaseCustomer::~BaseCustomer()
 {
-	for (auto prod : m_shoppingList)
-	{
-		delete prod;
-	}	
+
 }
 
 void BaseCustomer::addProductToShopingList(Product* prod)
@@ -36,6 +34,8 @@ void BaseCustomer::buyProducts()
 	if (m_balance >= price)
 	{
 		m_balance -= price;
+		m_totalCostBought += price;
+		m_purchases++;
 		m_shoppingList.clear();
 	}
 	else
@@ -53,14 +53,25 @@ void BaseCustomer::printShopingList() const
 	}
 }
 
+void BaseCustomer::checkInput()
+{
+	if (m_balance < 0)
+	{
+		throw std::invalid_argument("Wrong value!");
+	}
+}
+
 std::string BaseCustomer::Info()
 {
-	return "Customer: " + m_fullName + " balance: " + std::to_string(m_balance)
-						+ "\n total cost bought: " + std::to_string(m_totalCostBought)
-						+ "\n personal discount: " + std::to_string(personalDiscount()) + "\n";
+	std::stringstream ss;
+	ss << "Customer: \n" << "Name: " << m_fullName << "\n balance: " << std::setprecision(2)  << std::fixed << m_balance
+		<< "\n total cost bought: " << m_totalCostBought
+		<< "\n purchases: " << m_purchases
+		<< "\n personal discount: " << this->personalDiscount() << "\n";
+	return ss.str();
 }
 
 const char* BaseCustomer::LowBalanceException::what() const noexcept
 {
-	return "Low balance";
+	return "Low balance!";
 }

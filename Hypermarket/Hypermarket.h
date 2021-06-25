@@ -8,6 +8,11 @@
 #include <iomanip>
 #include "Product.h"
 #include "Customer.h"
+#include "Smartphone.h"
+#include "Notebook.h"
+#include "MobilePhone.h"
+#include "RegularCustomer.h"
+
 
 class Hypermarket
 {
@@ -20,6 +25,7 @@ public:
 
 	void addCustomer(BaseCustomer* customer);
 	void removeCustomer(int pos);
+	void removeCustomer(BaseCustomer* customer);
 
 	bool isEmptyCustomers() const;
 	bool isEmptyProducts() const;
@@ -29,17 +35,19 @@ public:
 	
 	Product*		getProduct(int pos) const;
 	BaseCustomer*	getCustomer(const std::string& fullName) const;
+	BaseCustomer*	getCustomer(BaseCustomer* customer) const;
+	Product*		editProduct(Product* prod);
 	
 	int getCustomersAmount() const { return m_customers.size(); }
 	int getProductsAmount() const { return m_availableProds.size(); }
 private:
+	MobilePhone* editMobilePhone(MobilePhone* phone);
+	Smartphone* editSmartphone(Smartphone* smart);
+	Notebook* editNotebook(Notebook* note);
+
 	// ѕровер€ет наличие покупател€ по имени
-	bool isCustomerExist(const std::string& fullName) const
-	{ 
-		return std::count_if(m_customers.begin(), m_customers.end(), [fullName](BaseCustomer* customer) {
-			return customer->getName() == fullName;
-		});
-	}
+	bool isCustomerExist(const std::string& fullName) const;
+	
 	std::vector<BaseCustomer*>	m_customers;
 	std::vector<Product*>		m_availableProds;
 };

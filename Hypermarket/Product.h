@@ -31,6 +31,7 @@ public:
 	{
 		Smartphone,
 		Notebook,
+		MobilePhone,
 		Unknown
 	};
 
