@@ -1,10 +1,11 @@
 #include "BaseCustomer.h"
 
-BaseCustomer::BaseCustomer(const std::string& fullName, double totalCostBought, double balance):
+BaseCustomer::BaseCustomer(const std::string& fullName, double totalCostBought, double balance, int purchases):
 	m_fullName(fullName),
 	m_totalCostBought(totalCostBought),
 	m_balance(balance),
-	m_shoppingList{}
+	m_shoppingList{},
+	m_purchases(purchases)
 {
 	checkInput();
 }
@@ -52,6 +53,7 @@ void BaseCustomer::printShopingList() const
 		std::cout << i++ << " " << prod->Info();
 	}
 }
+
 
 void BaseCustomer::checkInput()
 {

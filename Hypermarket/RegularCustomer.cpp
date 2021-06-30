@@ -1,8 +1,8 @@
 #include "RegularCustomer.h"
 
 
-RegularCustomer::RegularCustomer(const std::string& fullName, double totalCostBought, double balance):
-	BaseCustomer(fullName, totalCostBought, balance)
+RegularCustomer::RegularCustomer(const std::string& fullName, double totalCostBought, double balance, int purchases):
+	BaseCustomer(fullName, totalCostBought, balance, purchases)
 {
 }
 
@@ -23,4 +23,9 @@ double RegularCustomer::getFinalPriceForCustomer(Product* prod)
 		discount = prod->getMaxDiscount();
 	}
 	return prod->getPrice() - ((prod->getPrice() * discount) / 100);
+}
+
+bool RegularCustomer::isRegular()
+{
+	return true;
 }

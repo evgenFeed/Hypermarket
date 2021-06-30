@@ -17,8 +17,7 @@ int main()
     Product* prod = nullptr;
     string brand, productName;
     double price, maxDiscount;
-    bool testb = true;
-    while (testb)
+    while (true)
     {
         cout << "Choose role:" << endl;
         cout << "1. Administrator" << endl;
@@ -174,7 +173,7 @@ int main()
                     {
                         hypermarket.printProducts();
                         cout << endl
-                            << "Enter position which product you wanna edit or 0 to cancel." << endl;
+                             << "Enter position which product you wanna edit or 0 to cancel." << endl;
                         int posProduct = 0;
                         cin >> posProduct;
                         if (posProduct < 0 || posProduct > hypermarket.getProductsAmount())
@@ -210,7 +209,7 @@ int main()
                         cin >> posCustomer;
                         if (posCustomer <= 0 || posCustomer > hypermarket.getCustomersAmount())
                         {
-                            throw invalid_argument("Wrong pos!");
+                            throw invalid_argument("Wrong number!");
                         }
                         else
                         {
@@ -315,12 +314,11 @@ int main()
                             {
                                 cart = false;
                             }
-                            if (customer->getPurchases() >= 1)
+                            if (customer->getPurchases() >= 1 && !customer->isRegular())
                             {
-                                BaseCustomer* new_customer = new RegularCustomer(customer->getName(), customer->getTotalCostBought(), customer->getBalance());
-                                new_customer->setShoppingList(customer->getProductList());
+                                BaseCustomer* new_customer = new RegularCustomer(customer->getName(), customer->getTotalCostBought(), customer->getBalance(), customer->getPurchases());
+                                new_customer->setShopingList(customer->getShopingList());
                                 hypermarket.removeCustomer(customer);
-                                delete customer;
                                 customer = new_customer;
                                 hypermarket.addCustomer(customer);
                             }
@@ -353,5 +351,6 @@ int main()
             customer->clearShopingList();
         }
     }
+    
     return 0;
 }

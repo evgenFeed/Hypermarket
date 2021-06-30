@@ -22,7 +22,6 @@ public:
 protected:
     void checkInput() override;
 private:
-    
     double m_screenDiagonal;
     double m_weight;
     unsigned int m_numOfCPUCores;

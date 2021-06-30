@@ -9,8 +9,6 @@ Product::Product(std::string brand, std::string productName, double price, doubl
 	checkInput();
 }
 
-
-
 std::string Product::Info() const
 {
 	std::stringstream ss;

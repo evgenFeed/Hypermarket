@@ -48,12 +48,26 @@ void Notebook::setWeight(double weight)
 
 void Notebook::setNumOfCPUCores(unsigned int numOfCPUCores)
 {
-	m_numOfCPUCores = numOfCPUCores;
+	if (numOfCPUCores <= 0)
+	{
+		throw std::invalid_argument("Wrong input!");
+	}
+	else
+	{
+		m_numOfCPUCores = numOfCPUCores;
+	}
 }
 
 void Notebook::setAmountOfRAM(unsigned int amountOfRAM)
 {
-	m_amountOfRAM = amountOfRAM;
+	if (amountOfRAM <= 0)
+	{
+		throw std::invalid_argument("Wrong input!");
+	}
+	else
+	{
+		m_amountOfRAM = amountOfRAM;
+	}
 }
 
 void Notebook::checkInput()
@@ -76,5 +90,3 @@ void Notebook::checkInput()
 		throw std::invalid_argument("Amount of RAM must be greater than 0");
 	}
 }
-
-

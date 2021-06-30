@@ -42,7 +42,7 @@ void Hypermarket::removeCustomer(int pos)
 	}
 	else
 	{
-		m_customers.erase(m_customers.begin() + pos);
+		m_customers.erase(m_customers.begin() + pos - 1);
 	}
 }
 
@@ -90,10 +90,7 @@ Product* Hypermarket::getProduct(int pos) const
 
 BaseCustomer* Hypermarket::getCustomer(const std::string& fullName) const
 {
-	auto it = std::find_if(m_customers.begin(), m_customers.end(), [fullName](BaseCustomer* val)
-	{
-		return (val->getName() == fullName); 
-	});
+	auto it = std::find_if(m_customers.begin(), m_customers.end(), [fullName](BaseCustomer* val) { return (val->getName() == fullName); });
 	if (it != m_customers.end())
 	{
 		return *it;

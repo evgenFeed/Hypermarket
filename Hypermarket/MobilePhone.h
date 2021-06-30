@@ -8,6 +8,7 @@ public:
                 unsigned int maxNumOfSim, bool withContract);
     virtual ~MobilePhone() {}
     virtual std::string Info() const override;
+
     unsigned int getMaxNumberOfSim() const { return m_maxNumOfSim; }
     bool getWithContract() const { return m_withContract; }
 
